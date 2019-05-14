@@ -8,23 +8,24 @@
 
 import UIKit
 
+//
+//let firstFolderNotes = [
+//    Note(title: "UITableViews", date: Date(), text: "table views use protocols to recieve data."),
+//    Note(title: "Collection Views", date: Date(), text: "collection views can be customized with flow layouts to create layouts like you see in the Pinterest app.."),
+//    Note(title: "Flow Layouts", date: Date(), text: "custom layouts can be made with UICollectionViewFlowLayout")
+//]
+//
+//let secondFolderNotes = [
+//    Note(title: "Instagram", date: Date(), text: "I have two Instagram accounts. maxcodes && maxcodes.io"),
+//    Note(title: "YouTube Channels", date: Date(), text: "I also have two youtube channels. One for iOS development videos, another for developer vlogs.")
+//]
+//
+//var noteFolders:[NoteFolder] = [
+//    NoteFolder(title: "Course Notes", notes: firstFolderNotes),
+//    NoteFolder(title: "Social Media", notes: secondFolderNotes)
+//]
 
-let firstFolderNotes = [
-    Note(title: "UITableViews", date: Date(), text: "table views use protocols to recieve data."),
-    Note(title: "Collection Views", date: Date(), text: "collection views can be customized with flow layouts to create layouts like you see in the Pinterest app.."),
-    Note(title: "Flow Layouts", date: Date(), text: "custom layouts can be made with UICollectionViewFlowLayout")
-]
-
-let secondFolderNotes = [
-    Note(title: "Instagram", date: Date(), text: "I have two Instagram accounts. maxcodes && maxcodes.io"),
-    Note(title: "YouTube Channels", date: Date(), text: "I also have two youtube channels. One for iOS development videos, another for developer vlogs.")
-]
-
-var noteFolders:[NoteFolder] = [
-    NoteFolder(title: "Course Notes", notes: firstFolderNotes),
-    NoteFolder(title: "Social Media", notes: secondFolderNotes)
-]
-
+var noteFolders = [NoteFolder]()
 
 class FoldersController: UITableViewController {
     
@@ -44,8 +45,8 @@ class FoldersController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Folders"
-        
+        navigationItem.title = "Core Data Folders"
+        noteFolders = CoreDataManager.shared.fetchNoteFolders()
         setupTableView()
     }
     
@@ -67,6 +68,8 @@ class FoldersController: UITableViewController {
         self.navigationController?.navigationBar.tintColor = .primaryColor
         
         setupTranslucentViews()
+        
+        self.tableView.reloadData()
     }
     
     var textField:UITextField!
@@ -86,7 +89,7 @@ class FoldersController: UITableViewController {
             addAlert.dismiss(animated: true)
             guard let title = self.textField.text else { return }
             
-            let newFolder = NoteFolder(title: title, notes: [])
+            let newFolder = CoreDataManager.shared.createNoteFolder(title: title)
             noteFolders.append(newFolder)
             self.tableView.insertRows(at: [IndexPath(row: noteFolders.count - 1, section: 0)], with: .fade)
         }))
@@ -124,6 +127,17 @@ class FoldersController: UITableViewController {
 }
 
 extension FoldersController {
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (rowAction, indexPath) in
+            let noteFolder = noteFolders[indexPath.row]
+            if CoreDataManager.shared.deleteNoteFolder(noteFolder: noteFolder) {
+                noteFolders.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+        return [deleteAction]
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return noteFolders.count

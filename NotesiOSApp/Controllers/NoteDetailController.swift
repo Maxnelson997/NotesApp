@@ -8,32 +8,63 @@
 
 import UIKit
 
+protocol NoteDelegate {
+    func saveNewNote(title: String, date: Date, text: String)
+}
+
 class NoteDetailController: UIViewController {
+    
+    let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy 'at' h:mm a"
+        return dateFormatter
+    }()
+    
+    var noteData:Note! {
+        didSet {
+            textView.text = noteData.title
+            dateLabel.text = dateFormatter.string(from: noteData.date ?? Date())
+        }
+    }
+    
+    var delegate: NoteDelegate?
     
     fileprivate var textView: UITextView = {
         let tf = UITextView()
         tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.text = "Notes go in here."
+        tf.text = ""
         tf.isEditable = true
         tf.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         return tf
     }()
     
-    fileprivate var dateLabel: UILabel = {
+    fileprivate lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .light)
         label.textColor = .gray
-        label.text = "March 22 2019 at 4:35pm"
+        label.text = dateFormatter.string(from: Date())
         label.textAlignment = .center
         return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .white
         setupUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.noteData == nil {
+            delegate?.saveNewNote(title: textView.text, date: Date(), text: textView.text)
+        } else {
+            // update our note here.
+            guard let newText = self.textView.text else { return }
+            CoreDataManager.shared.saveUpdatedNote(note: self.noteData, newText: newText)
+        }
     }
     
     fileprivate func setupUI() {

@@ -13,7 +13,8 @@ class FolderCell: UITableViewCell {
     var folderData:NoteFolder! {
         didSet {
             label.text = folderData.title
-            countLabel.text = String(folderData.notes.count)
+            let count = CoreDataManager.shared.fetchNotes(from: folderData).count
+            countLabel.text = String(count)
         }
     }
     

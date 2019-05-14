@@ -18,6 +18,8 @@
 		792DE7022245B70F00461847 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE7012245B70F00461847 /* NoteCell.swift */; };
 		792DE7052245C45400461847 /* NoteFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE7042245C45400461847 /* NoteFolder.swift */; };
 		792DE7072245C45A00461847 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE7062245C45A00461847 /* Note.swift */; };
+		79573716224AC1D20083A981 /* NotesiOSApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79573714224AC1D20083A981 /* NotesiOSApp.xcdatamodeld */; };
+		79573718224AC7D80083A981 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79573717224AC7D80083A981 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		792DE7012245B70F00461847 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		792DE7042245C45400461847 /* NoteFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteFolder.swift; sourceTree = "<group>"; };
 		792DE7062245C45A00461847 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		79573715224AC1D20083A981 /* NotesiOSApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NotesiOSApp.xcdatamodel; sourceTree = "<group>"; };
+		79573717224AC7D80083A981 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 				79231E252241E3E100F61C07 /* LaunchScreen.storyboard */,
 				79231E282241E3E100F61C07 /* Info.plist */,
 				791200E322442DD8001875B8 /* extension.swift */,
+				79573714224AC1D20083A981 /* NotesiOSApp.xcdatamodeld */,
+				79573717224AC7D80083A981 /* CoreDataManager.swift */,
 			);
 			path = NotesiOSApp;
 			sourceTree = "<group>";
@@ -138,6 +144,7 @@
 				TargetAttributes = {
 					79231E182241E3E000F61C07 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -181,10 +188,12 @@
 				79231E1D2241E3E000F61C07 /* AppDelegate.swift in Sources */,
 				791200E422442DD8001875B8 /* extension.swift in Sources */,
 				792DE6FD2245839800461847 /* NoteDetailController.swift in Sources */,
+				79573716224AC1D20083A981 /* NotesiOSApp.xcdatamodeld in Sources */,
 				792DE7072245C45A00461847 /* Note.swift in Sources */,
 				792DE7052245C45400461847 /* NoteFolder.swift in Sources */,
 				792DE7022245B70F00461847 /* NoteCell.swift in Sources */,
 				792DE7002245B03600461847 /* FolderCell.swift in Sources */,
+				79573718224AC7D80083A981 /* CoreDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +340,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxcodes.NotesiOSApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -349,7 +358,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxcodes.NotesiOSApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -376,6 +385,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		79573714224AC1D20083A981 /* NotesiOSApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				79573715224AC1D20083A981 /* NotesiOSApp.xcdatamodel */,
+			);
+			currentVersion = 79573715224AC1D20083A981 /* NotesiOSApp.xcdatamodel */;
+			path = NotesiOSApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 79231E112241E3E000F61C07 /* Project object */;
 }
